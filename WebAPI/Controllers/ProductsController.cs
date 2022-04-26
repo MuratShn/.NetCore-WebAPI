@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
                 return BadRequest(data);
             }
         }
-        [HttpPost]
+        [HttpPost("addproduct")]
         public IActionResult Add(Product datas)
         {
             var result = _productService.Add(datas);
