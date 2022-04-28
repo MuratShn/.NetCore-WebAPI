@@ -4,6 +4,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.AutoFac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -21,12 +22,14 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
+        ICategoryService _categoryService;
         ILogger _logger;
         //uygulama basladıgında bana bı IProductDal ver dıyo
         //Verilen IProductDal bi entitiyFramework olabılır  inmemory calısıyor olabılır artık verene kalmıs
-        public ProductManager(IProductDal productDal, ILogger logger)
+        public ProductManager(IProductDal productDal, ILogger logger,ICategoryService categoryService)
         {
             _productDal = productDal;
+            _categoryService = categoryService;
             _logger = logger;
         }
 
@@ -40,27 +43,46 @@ namespace Business.Concrete
             //bir ürün eklemek istersen  eklemek istediğin ürünün kat. maks 10 ürün olabilir
             //bunu burda yazmak yerine altta privated metod olusturup yazıyoruz bu sekılde kucuk iş parcacıkları olusturup dırek metotlardada kullanabılırız
 
-            if (CheckIfProductCountOfCategoryCorrect(entity.CategoryId).succes)
+            //if (CheckIfProductCountOfCategoryCorrect(entity.CategoryId).succes)
+            //{
+            //    Console.WriteLine("Başarılı");
+            //    //return new SuccesResult(Messages.ProductAdded);
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Başarısız");
+            //}
+
+            ////////////////77
+            /////Aynı Üründe İsim eklenemek
+            //if (CheckIfProductNameEqualsTheParameters(entity.ProductName).succes)
+            //{
+            //    Console.WriteLine("başarılı");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("başarısız");
+            //}
+
+            /////////////////
+            ///// mevcut kategori sayısı 15'i geçtiyse sisteme mevcut ürün eklenemez
+            
+
+
+            //İş kurallarını burda birleştirdik en sonda
+
+            BusinessRules businessRules = new BusinessRules();
+            var result = businessRules.Run(CheckIfProductNameEqualsTheParameters(entity.ProductName),
+                CheckIfProductCountOfCategoryCorrect(entity.CategoryId),CheckIfCategorySum15());
+
+            if (result != null)
             {
-                Console.WriteLine("Başarılı");
-                //return new SuccesResult(Messages.ProductAdded);
+                //hata vardır 
             }
             else
             {
-                Console.WriteLine("Başarısız");
+                //başarılı
             }
-
-            //////////////77
-            ///Aynı Üründe İsim eklenemek
-            if (CheckIfProductNameEqualsTheParameters(entity.ProductName).succes)
-            {
-                Console.WriteLine("başarılı");
-            }
-            else
-            {
-                Console.WriteLine("başarısız");
-            }
-
 
             //_productDal.Add(entity);
 
@@ -109,6 +131,14 @@ namespace Business.Concrete
         private IResult CheckIfProductNameEqualsTheParameters(string name)
         {
             if (_productDal.GetAll(p => p.ProductName.ToLower() == name.ToLower()).Count <= 1)
+            {
+                return new SuccesResult();
+            }
+            return new ErrorResult();
+        }
+        private IResult CheckIfCategorySum15()
+        {
+            if (_categoryService.GetAll().Data.Count < 2)
             {
                 return new SuccesResult();
             }
