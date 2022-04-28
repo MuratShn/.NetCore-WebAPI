@@ -60,11 +60,6 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        public List<TEntity> GetByCategory(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(TEntity entitiy)
         {
             using (TContext context = new TContext()) //içinde yazılan nesneler bittiğinde bellekten anında atılır

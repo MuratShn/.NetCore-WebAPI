@@ -41,6 +41,7 @@ namespace WebAPI.Controllers
         public IActionResult Add(Product datas)
         {
             var result = _productService.Add(datas);
+
             if (result.succes)
             {
                 return Ok(result);

@@ -44,32 +44,32 @@ namespace ConsoleUI
             //}
             #endregion
 
-            ProductManager productManager = new ProductManager(new EfProductDal());
-            //CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+            //ProductManager productManager = new ProductManager(new EfProductDal());
+            ////CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
 
-            //foreach (var item in categoryManager.GetAll())
-            //{
-            //    Console.WriteLine(item.CategoryName);
-            //}
-            //Console.WriteLine("///////////////////");
+            ////foreach (var item in categoryManager.GetAll())
+            ////{
+            ////    Console.WriteLine(item.CategoryName);
+            ////}
+            ////Console.WriteLine("///////////////////");
 
-            //foreach (var item in productManager.GetProductDetail())
-            //{
-            //    Console.WriteLine(item.ProductName + "    " + item.CategoryName);
-            //}
+            ////foreach (var item in productManager.GetProductDetail())
+            ////{
+            ////    Console.WriteLine(item.ProductName + "    " + item.CategoryName);
+            ////}
 
-            //productManager.Add(productManager.GetAll()[0]);
+            ////productManager.Add(productManager.GetAll()[0]);
 
-            var products = productManager.GetAll();
-
-
-            #region Result
-
-            #endregion
+            //var products = productManager.GetAll();
 
 
-            Console.WriteLine();
-            Console.Read();
+            //#region Result
+
+            //#endregion
+
+
+            //Console.WriteLine();
+            //Console.Read();
         }
     }
 }
