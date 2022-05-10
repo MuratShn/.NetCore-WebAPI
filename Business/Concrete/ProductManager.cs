@@ -33,6 +33,11 @@ namespace Business.Concrete
             _logger = logger;
         }
 
+        //[Yetkiler("Admin,Yönetici")]
+        // Ekleme yapmak için admin yada yönetici yetkisinde olmak gerekiyor bu yapılara CLAİM diyoruz
+        // Yani Eklemek Yapıcak Kullanıcının Admin veya yönetici Claimlerinden birine sahip olması gerekiyor
+
+
         //[ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product entity)
         {
@@ -74,6 +79,8 @@ namespace Business.Concrete
             BusinessRules businessRules = new BusinessRules();
             var result = businessRules.Run(CheckIfProductNameEqualsTheParameters(entity.ProductName),
                 CheckIfProductCountOfCategoryCorrect(entity.CategoryId),CheckIfCategorySum15());
+
+
 
             if (result != null)
             {
