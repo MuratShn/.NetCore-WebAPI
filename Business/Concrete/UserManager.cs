@@ -27,12 +27,18 @@ namespace Business.Concrete
             return new SuccesResult(Messages.ProductAdded);
         }
 
-        public IDataResult<User> GetByMail(string email)
+        public IDataResult<User> GetUserByMail(string Email)
         {
-            var test = _userDal.Get(p => p.Email == email);
-            var b = new SuccesDataResult<User>(_userDal.Get(p => p.Email == email));
-            return new SuccesDataResult<User>(_userDal.Get(p => p.Email == email));
+            var check = _userDal.Get(p => p.Email == Email); //Daha önceden böyle bi mail ile hesap açılmamış ise null dönücek eğer hesap var ise data dönücek
+
+            if ( check == null)
+            {
+                return new DataResult<User>(check,true); //hesap yok
+            }
+            return new DataResult<User>(check, false); //Böyle bir hesap var
+            
         }
+
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {

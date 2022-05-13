@@ -48,8 +48,9 @@ namespace Business.Concrete
         //Giriş yaparken gerekli olan operasonu gerceklestırıyor
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = _userService.GetByMail(userForLoginDto.Email);
-            if (userToCheck == null)
+            var userToCheck = _userService.GetUserByMail(userForLoginDto.Email);
+
+            if (userToCheck.succes) //Böyle bir kullanıcı yok
             {
                 return new ErrorDataResult<User>("Kullanıcı Bulunamadı");
             }
@@ -65,11 +66,14 @@ namespace Business.Concrete
         //Çıkış yaparken gerekli olan operasonu gerceklestırıyor
         public IResult UserExists(string email)
         {
-            if (_userService.GetByMail(email) == null)
+            var userToCheck = _userService.GetUserByMail(email);
+
+            if (userToCheck.succes)
             {
-                return new ErrorResult("Kullanıcı Mevcut");
+                return new SuccesResult();
             }
-            return new SuccesResult();
+            return new ErrorResult("Kullanıcı Mevcut");
+
         }
 
         public IDataResult<AccessToken> CreateAccessToken(User user)

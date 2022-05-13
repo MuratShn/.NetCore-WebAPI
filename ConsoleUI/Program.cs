@@ -1,9 +1,12 @@
 ﻿using Business.Concrete;
+using Core.Entities.Concrete;
 using DataAccess.Concrete.EntitiyFramework;
 using DataAccess.Concrete.InMemory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ConsoleUI
 {
@@ -68,8 +71,62 @@ namespace ConsoleUI
             //#endregion
 
 
-            //Console.WriteLine();
-            //Console.Read();
+            #region JWT TEST Hashleme sıkıntısı
+
+            //string sifre = "12345";
+
+            //byte[] passwordSalt, passwordHash;
+
+
+            //using (var hmac = new HMACSHA512()) //burda hazır algolaritmaarı kullancaz
+            //{
+            //    passwordSalt = hmac.Key;
+            //    passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(sifre)); //parametre olarak sifreyi veriyoz ama byte seklınde ıstedıgı ıcın donusme yapıyoruz
+
+            //}
+
+
+            //sifre = "ts123";
+
+
+            //var _userService = new UserManager(new EfUserDal());
+
+            //_userService.Add(new User()
+            //{
+            //    Email = sifre,
+
+            //    FirstName = passwordHash.ToString(),
+            //    LastName = passwordSalt.ToString(),
+
+            //    PasswordHash = passwordHash,
+            //    PasswordSalt = passwordSalt
+
+            //});
+
+
+            /////////////////// Şifreleme kısmı yukarıdaydı şimdi kontrol
+
+            //var girilensifre = "12345";
+
+            //var user2 = _userService.GetUserByMail(sifre); //yukarıdakı veriyi almış olucam böyle
+
+
+            //using (var hmac = new HMACSHA512(user2.Data.PasswordSalt)) 
+            //{
+            //    passwordSalt = hmac.Key;
+                
+            //    passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(girilensifre)); //parametre olarak sifreyi veriyoz ama byte seklınde ıstedıgı ıcın donusme yapıyoruz
+
+            //    var elimdeki = user2.Data.PasswordHash;
+
+            //}
+
+
+
+
+            #endregion
+
+            Console.Read();
         }
     }
 }
