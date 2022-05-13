@@ -77,6 +77,7 @@ namespace Business.Concrete
             //İş kurallarını burda birleştirdik en sonda
 
             BusinessRules businessRules = new BusinessRules();
+
             var result = businessRules.Run(CheckIfProductNameEqualsTheParameters(entity.ProductName),
                 CheckIfProductCountOfCategoryCorrect(entity.CategoryId),CheckIfCategorySum15());
 

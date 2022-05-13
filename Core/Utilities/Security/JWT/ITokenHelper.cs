@@ -12,7 +12,7 @@ namespace Core.Utilities.Security.JWT
         //Token Üreticek Mekanızmanın Kendini kim için ve hangi yetkileri olucak
 
         //Senaryo => Bir kullanıcı adı şifresini doğru yazdıgında buraya geldi ve tokenini aldı yetkilerine uygun bir biçimde
-        AccesToken CreateToken(User user, List<OperationClaim> operationClaims);
+        AccessToken CreateToken(User user, List<OperationClaim> operationClaims);
 
     }
 }

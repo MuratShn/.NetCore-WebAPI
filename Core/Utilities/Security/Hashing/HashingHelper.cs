@@ -9,8 +9,7 @@ namespace Core.Utilities.Security.Hashing
 {
     public class HashingHelper //Hash OOlusturmaya ve onu dogrulamaya yarıyor
     {
-        public static void CreatePasswordHash
-            (string password,out byte[] passwordHash,out byte[] passwordSalt)
+        public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             //out dısarıya cıkıca olan 
             using (var hmac = new HMACSHA512()) //burda hazır algolaritmaarı kullancaz
@@ -21,7 +20,7 @@ namespace Core.Utilities.Security.Hashing
             }
 
         }
-        public static bool VerifyPasswordHash(string password,byte[] passwordHash,byte[] passwordSalt)
+        public static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512(passwordSalt))
             {
@@ -33,10 +32,10 @@ namespace Core.Utilities.Security.Hashing
                         return false;
                     }
                 } //Nesne referans olayından dolayı boyle yaptık
-                
+
                 return true;
             }
-           
+
         }
     }
 }

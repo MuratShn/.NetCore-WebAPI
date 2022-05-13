@@ -13,7 +13,7 @@ namespace Core.Utilities.Security.Encryption
 
         public static SecurityKey CreateSecuritykey(string securtiyKey)
         {
-            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securtiyKey))
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securtiyKey));
         }
     }
 }
