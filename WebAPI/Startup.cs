@@ -76,12 +76,16 @@ namespace WebAPI
                     };
                 });
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //Bir tane core module ekledýk yarin oburgun baska core modullerde(injectionlarda) ekleyebilirim
             //ve alta istegiðim kadar module ekleyebýleyým istiyorum
             //Biz yazýcaz Extension yazýcaz
 
-            services.AddDependencyResolvers(new ICoreModule[] { new CoreModule()});
+            services.AddDependencyResolvers(new ICoreModule[]
+          {
+                new CoreModule(),
+          });
             //
         }
 

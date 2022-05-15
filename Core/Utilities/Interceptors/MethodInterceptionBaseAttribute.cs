@@ -11,9 +11,9 @@ namespace Core.Utilities.Interceptors
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public abstract class MethodInterceptionBaseAttribute : Attribute, IInterceptor
     {
-        public int Priority { get; set; } //öncelik sıralama işte önce loglama yapılsın sonra valida fian
+        public int Priority { get; set; }
 
-        public virtual void Intercept(IInvocation invocation) //ınvocation metot oluyo mesela getall,add meteodu gibi
+        public virtual void Intercept(IInvocation invocation)
         {
 
         }

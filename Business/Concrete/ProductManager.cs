@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
@@ -39,6 +40,8 @@ namespace Business.Concrete
 
 
         //[ValidationAspect(typeof(ProductValidator))]
+
+        [SecuredOperation("test")]
         public IResult Add(Product entity)
         {
             ////validation Kısmı
@@ -99,6 +102,7 @@ namespace Business.Concrete
 
         }
 
+        [SecuredOperation("admin")]
         public IDataResult<List<Product>> GetAll()
         {
             if (DateTime.Now.Hour == 1)
