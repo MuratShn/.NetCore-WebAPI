@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.AutoFac.Caching;
 using Core.Aspects.AutoFac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -39,9 +40,9 @@ namespace Business.Concrete
         // Yani Eklemek Yapıcak Kullanıcının Admin veya yönetici Claimlerinden birine sahip olması gerekiyor
 
 
-        //[ValidationAspect(typeof(ProductValidator))]
-
-        [SecuredOperation("test")]
+        [ValidationAspect(typeof(ProductValidator))]
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("IProduct.Get")] //burda ise yeni bir product eklediğimiz için IProductGet cache'lerini siliyoruz sadece get yazsaydık bütün getleri silicekti Category ve user listeledmiğimizide varsayarsak
         public IResult Add(Product entity)
         {
             ////validation Kısmı
@@ -89,6 +90,7 @@ namespace Business.Concrete
             if (result != null)
             {
                 //hata vardır 
+                return result;
             }
             else
             {
@@ -98,11 +100,11 @@ namespace Business.Concrete
             //_productDal.Add(entity);
 
             //return new Result(true,"Ürün Eklendi");
-            return new SuccesResult();
+            return new SuccesResult(Messages.ProductAdded);
 
         }
 
-        [SecuredOperation("admin")]
+        [CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
             if (DateTime.Now.Hour == 1)
@@ -112,15 +114,17 @@ namespace Business.Concrete
             return new SuccesDataResult<List<Product>>(_productDal.GetAll(), true, Messages.ProductAdded);
         }
 
+        [CacheAspect]
+        public IDataResult<Product> GetById(int id)
+        {
+            return new SuccesDataResult<Product>(_productDal.Get(p => p.ProductId == id));
+        }
+
         public IDataResult<List<Product>> GetAllByCategoryId(int id)
         {
             return new SuccesDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
 
-        public IDataResult<Product> GetById(int id)
-        {
-            return new SuccesDataResult<Product>(_productDal.Get(p => p.ProductId == id));
-        }
 
         public IDataResult<List<Product>> GetByUnıtPrice(decimal min = 0, decimal max = 9999)
         {
@@ -155,6 +159,8 @@ namespace Business.Concrete
                 return new SuccesResult();
             }
             return new ErrorResult();
+
         }
     }
 }
+

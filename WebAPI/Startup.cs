@@ -76,7 +76,7 @@ namespace WebAPI
                     };
                 });
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //Bir tane core module ekledýk yarin oburgun baska core modullerde(injectionlarda) ekleyebilirim
             //ve alta istegiðim kadar module ekleyebýleyým istiyorum
