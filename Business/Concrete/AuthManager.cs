@@ -50,14 +50,14 @@ namespace Business.Concrete
         {
             var userToCheck = _userService.GetUserByMail(userForLoginDto.Email);
 
-            if (userToCheck.succes) //Böyle bir kullanıcı yok
+            if (userToCheck.success) //Böyle bir kullanıcı yok
             {
                 return new ErrorDataResult<User>("Kullanıcı Bulunamadı");
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
             {
-                return new ErrorDataResult<User>("Şifre Yanlış");
+                return new ErrorDataResult<User>("Kullanıcı Adı Veya Şifre Yanlış"); //şifre yanlış
             }
 
             return new SuccesDataResult<User>(userToCheck.Data,true, "Giriş başarılı");
@@ -68,7 +68,7 @@ namespace Business.Concrete
         {
             var userToCheck = _userService.GetUserByMail(email);
 
-            if (userToCheck.succes)
+            if (userToCheck.success)
             {
                 return new SuccesResult();
             }

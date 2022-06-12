@@ -57,6 +57,11 @@ namespace WebAPI
 
 
 
+            // Kaynak Paylasýmý acýyoruz dýsardan býrý ýstek atabýlmesý ýcýn yapýlýyor configure kýsmýdna devam edýyor
+            services.AddCors(); 
+            //
+
+
             //Authentication ekleme kýsmý
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
@@ -98,6 +103,11 @@ namespace WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
+            app.ConfigureCustomExceptionMiddleware();
+
+            app.UseCors(b=>b.WithOrigins("http://localhost:54066", "http://localhost:4200").AllowAnyHeader()); 
+            //buda nererele izin verdýgýmýzý yazýyor
+            //allowany header ise get,put,post... hepsini izin ver
 
             app.UseHttpsRedirection();
 

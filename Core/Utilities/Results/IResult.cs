@@ -9,7 +9,7 @@ namespace Core.Utilities.Results
     //Temel voidler için başlangıç
     public interface IResult
     {
-        bool succes { get; }
+        bool success { get; }
         string message { get; }
     }
 }

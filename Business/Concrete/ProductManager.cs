@@ -83,23 +83,24 @@ namespace Business.Concrete
             BusinessRules businessRules = new BusinessRules();
 
             var result = businessRules.Run(CheckIfProductNameEqualsTheParameters(entity.ProductName),
-                CheckIfProductCountOfCategoryCorrect(entity.CategoryId),CheckIfCategorySum15());
+                CheckIfProductCountOfCategoryCorrect(entity.CategoryId));
 
+            //result.succes = true;
 
-
-            if (result != null)
-            {
-                //hata vardır 
-                return result;
-            }
-            else
-            {
-                //başarılı
-            }
+            //if (result != null)
+            //{
+            //    //hata vardır 
+            //    return result;
+            //}
+            //else
+            //{
+            //    //başarılı
+            //}
 
             //_productDal.Add(entity);
 
             //return new Result(true,"Ürün Eklendi");
+            //_productDal.Add(entity);
             return new SuccesResult(Messages.ProductAdded);
 
         }
@@ -152,15 +153,15 @@ namespace Business.Concrete
             }
             return new ErrorResult();
         }
-        private IResult CheckIfCategorySum15()
-        {
-            if (_categoryService.GetAll().Data.Count < 2)
-            {
-                return new SuccesResult();
-            }
-            return new ErrorResult();
+        //private IResult CheckIfCategorySum15()
+        //{
+        //    if (_categoryService.GetAll().Data.Count < 2)
+        //    {
+        //        return new SuccesResult();
+        //    }
+        //    return new ErrorResult();
 
-        }
+        //}
     }
 }
 

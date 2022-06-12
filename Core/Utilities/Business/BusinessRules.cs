@@ -13,7 +13,7 @@ namespace Core.Utilities.Business
         {
             foreach (var item in Logics)
             {
-                if (!item.succes)
+                if (!item.success)
                 {
                     return item; //eger problem var ise problem olan ıs parcacıgı geriye döndür
                 }

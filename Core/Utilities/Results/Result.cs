@@ -15,11 +15,11 @@ namespace Core.Utilities.Results
         }
         public Result(bool Succes)
         {
-            succes = Succes;
+            success = Succes;
         }
         //bu yukarıdakının yerıne gene 2 ctor alttakı succes sadece ustekkı succes ve mess olucak sekılde 
 
-        public bool succes { get; }
+        public bool success { get; }
         public string message { get; }
       
     }

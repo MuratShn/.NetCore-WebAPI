@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -25,11 +26,12 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
+            Thread.Sleep(100);
             var data = _productService.GetAll();
 
-            if (data.succes)
+            if (data.success)
             {
-                return Ok(data.Data);
+                return Ok(data);
             }
             else
             {
@@ -40,9 +42,11 @@ namespace WebAPI.Controllers
         [HttpPost("addproduct")]
         public IActionResult Add(Product datas)
         {
+            var s = HttpContext;
+
             var result = _productService.Add(datas);
 
-            if (result.succes)
+            if (result.success)
             {
                 return Ok(result);
             }
@@ -53,9 +57,22 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
+
             var result = _productService.GetById(id);
 
-            if (result.succes)
+            if (result.success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbycategoryid")]
+        public IActionResult GetByCategoryId(int id)
+        {
+            var result = _productService.GetAllByCategoryId(id);
+
+            if (result.success)
             {
                 return Ok(result);
             }
